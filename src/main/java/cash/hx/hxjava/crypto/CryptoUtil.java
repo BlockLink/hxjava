@@ -1,6 +1,7 @@
 package cash.hx.hxjava.crypto;
 
 import org.bouncycastle.crypto.digests.RIPEMD160Digest;
+import org.bouncycastle.crypto.digests.SHA256Digest;
 import org.bouncycastle.crypto.digests.SHA512Digest;
 
 import java.io.ByteArrayOutputStream;
@@ -16,6 +17,14 @@ public class CryptoUtil {
 
     public static byte[] sha512(byte[] input) {
         SHA512Digest d = new SHA512Digest();
+        d.update(input, 0, input.length);
+        byte[] o = new byte[d.getDigestSize()];
+        d.doFinal(o, 0);
+        return o;
+    }
+
+    public static byte[] sha256(byte[] input) {
+        SHA256Digest d = new SHA256Digest();
         d.update(input, 0, input.length);
         byte[] o = new byte[d.getDigestSize()];
         d.doFinal(o, 0);

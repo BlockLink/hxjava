@@ -24,7 +24,7 @@ public class TransactionSerializer implements ISerializer<Transaction> {
         TransferOperationSerializer transferOperationSerializer = new TransferOperationSerializer(addressPrefix);
         try {
             bos.write(uint16Serializer.serialize(instance.getRefBlockNum()));
-            bos.write(uint16Serializer.serialize(instance.getRefBlockPrefix()));
+            bos.write(uint32Serializer.serialize(instance.getRefBlockPrefix()));
             bos.write(uint32Serializer.serialize(instance.getTransientExpiration()));
 
             // operations

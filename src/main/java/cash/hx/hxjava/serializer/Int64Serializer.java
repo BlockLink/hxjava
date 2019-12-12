@@ -1,5 +1,6 @@
 package cash.hx.hxjava.serializer;
 
+import cash.hx.hxjava.config.Constants;
 import cash.hx.hxjava.exceptions.DeserializeException;
 import cash.hx.hxjava.exceptions.SerializeException;
 
@@ -52,6 +53,6 @@ public class Int64Serializer implements ISerializer<Long> {
     }
 
     public static Int64Serializer defaultInstance() {
-        return new Int64Serializer(EndianConstants.littleEndian);
+        return new Int64Serializer(Constants.littleEndian);
     }
 }

@@ -5,7 +5,7 @@ import cash.hx.hxjava.asset.AssetUtil;
 import java.util.ArrayList;
 
 public class OperationsUtil {
-    public TransferOperation defaultOperation() {
+    public static TransferOperation defaultTransferOperation() {
         TransferOperation op = new TransferOperation();
         op.setFee(AssetUtil.defaultAsset());
         op.setGuaranteeId(null);

@@ -1,11 +1,12 @@
 package cash.hx.hxjava.serializer;
 
+import cash.hx.hxjava.config.Constants;
 import cash.hx.hxjava.exceptions.DeserializeException;
 import cash.hx.hxjava.exceptions.SerializeException;
 
 import java.io.ByteArrayOutputStream;
 
-public class Uint32Serializer implements ISerializer<Integer> {
+public class Uint32Serializer implements ISerializer<Long> {
     private final boolean littleEndian;
 
     public Uint32Serializer(boolean littleEndian) {
@@ -13,8 +14,8 @@ public class Uint32Serializer implements ISerializer<Integer> {
     }
 
     @Override
-    public byte[] serialize(Integer instance) throws SerializeException {
-        int intValue = instance;
+    public byte[] serialize(Long instance) throws SerializeException {
+        long intValue = instance;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         if(littleEndian) {
             bos.write((byte)intValue);
@@ -31,17 +32,17 @@ public class Uint32Serializer implements ISerializer<Integer> {
     }
 
     @Override
-    public Integer deserialize(byte[] bytes) throws DeserializeException {
-        int value;
+    public Long deserialize(byte[] bytes) throws DeserializeException {
+        long value;
         if(littleEndian) {
-            value = ((int) bytes[0]) | (((int)bytes[1]) << 8) | (((int)bytes[2]) << 16) | (((int) bytes[3]) << 24);
+            value = ((long) bytes[0]) | (((long)bytes[1]) << 8) | (((long)bytes[2]) << 16) | (((long) bytes[3]) << 24);
         } else {
-            value = ((int) bytes[3]) | (((int) bytes[2]) << 8) | (((int)bytes[1]) << 16) | (((int) bytes[0]) << 24);
+            value = ((long) bytes[3]) | (((long) bytes[2]) << 8) | (((long)bytes[1]) << 16) | (((long) bytes[0]) << 24);
         }
         return value;
     }
 
     public static Uint32Serializer defaultInstance() {
-        return new Uint32Serializer(EndianConstants.littleEndian);
+        return new Uint32Serializer(Constants.littleEndian);
     }
 }

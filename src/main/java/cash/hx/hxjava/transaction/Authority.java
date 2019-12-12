@@ -7,18 +7,18 @@ import java.util.List;
 
 public class Authority {
     @JSONField(name = "weight_threshold")
-    private int weightThreshold;
+    private long weightThreshold;
     @JSONField(name = "account_auths")
     private List<Object> accountAuths;
     @JSONField(name = "key_auths")
     private List<List<Object>> keyAuths;
     private String transientKeyAuths;
 
-    public int getWeightThreshold() {
+    public long getWeightThreshold() {
         return weightThreshold;
     }
 
-    public void setWeightThreshold(int weightThreshold) {
+    public void setWeightThreshold(long weightThreshold) {
         this.weightThreshold = weightThreshold;
     }
 

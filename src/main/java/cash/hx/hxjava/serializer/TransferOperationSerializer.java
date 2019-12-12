@@ -42,8 +42,8 @@ public class TransferOperationSerializer implements ISerializer<TransferOperatio
             }
             Address fromAddr = Address.fromString(instance.getFromAddr(), addressPrefix);
             Address toAddr = Address.fromString(instance.getToAddr(), addressPrefix);
-            bos.write(fromAddr.getAddy());
-            bos.write(toAddr.getAddy());
+            bos.write(fromAddr.getAddyWithVersion());
+            bos.write(toAddr.getAddyWithVersion());
             bos.write(assetSerializer.serialize(instance.getAmount()));
             bos.write(memoSerializer.serialize(instance.getMemo()));
             bos.write(0);

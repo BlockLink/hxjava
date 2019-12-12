@@ -10,12 +10,12 @@ public class Transaction {
     @JSONField(name = "ref_block_num")
     private int refBlockNum;
     @JSONField(name = "ref_block_prefix")
-    private int refBlockPrefix;
+    private long refBlockPrefix;
     private String expiration;
     private List<List<Object>> operations;
     private List<Object> extensions;
     private List<String> signatures;
-    private int transientExpiration;
+    private long transientExpiration;
     private List<IOperation> transientOperations;
 
     public int getRefBlockNum() {
@@ -26,11 +26,11 @@ public class Transaction {
         this.refBlockNum = refBlockNum;
     }
 
-    public int getRefBlockPrefix() {
+    public long getRefBlockPrefix() {
         return refBlockPrefix;
     }
 
-    public void setRefBlockPrefix(int refBlockPrefix) {
+    public void setRefBlockPrefix(long refBlockPrefix) {
         this.refBlockPrefix = refBlockPrefix;
     }
 
@@ -67,11 +67,11 @@ public class Transaction {
     }
 
     @Transient
-    public int getTransientExpiration() {
+    public long getTransientExpiration() {
         return transientExpiration;
     }
 
-    public void setTransientExpiration(int transientExpiration) {
+    public void setTransientExpiration(long transientExpiration) {
         this.transientExpiration = transientExpiration;
     }
 

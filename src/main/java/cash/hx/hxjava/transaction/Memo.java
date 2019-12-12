@@ -52,6 +52,7 @@ public class Memo {
         this.empty = empty;
     }
 
+    @Transient
     public String getTransientMessage() {
         return transientMessage;
     }

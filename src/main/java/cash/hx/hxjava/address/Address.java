@@ -20,6 +20,10 @@ public class Address {
         return addy;
     }
 
+    public byte[] getAddyWithVersion() {
+        return CryptoUtil.bytesMerge(CryptoUtil.singleBytes(version), addy);
+    }
+
     public void setAddy(byte[] addy) {
         this.addy = addy;
     }

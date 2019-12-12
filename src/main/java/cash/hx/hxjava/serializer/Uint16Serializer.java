@@ -1,5 +1,6 @@
 package cash.hx.hxjava.serializer;
 
+import cash.hx.hxjava.config.Constants;
 import cash.hx.hxjava.exceptions.DeserializeException;
 import cash.hx.hxjava.exceptions.SerializeException;
 
@@ -38,6 +39,6 @@ public class Uint16Serializer implements ISerializer<Integer> {
     }
 
     public static Uint16Serializer defaultInstance() {
-        return new Uint16Serializer(EndianConstants.littleEndian);
+        return new Uint16Serializer(Constants.littleEndian);
     }
 }
