@@ -30,7 +30,7 @@ public class AddressTests {
         String pubKeyStr = "HX84brURxte4VoYqTdxBf9f5gAVeSzSxJKddNjM6bHQFBcB7EZ6b";
         String validAddr = "HXNfnUKMv6jjzQ6LDAtqnFokusBzJd3VJXH6";
         byte[] pubKeyBytes = PubKeyUtil.getPubKeyBytes(pubKeyStr);
-        Address address = Address.fromPubKey(pubKeyBytes, "mainnet", AddressVersion.NORMAL);
+        Address address = Address.fromPubKey(pubKeyBytes, AddressVersion.NORMAL);
         String decodedAddr = address.getValue(Address.ADDRESS_PREFIX);
         log.info("decode address: {}, valid address: {}", decodedAddr, validAddr);
         Assert.assertEquals(validAddr, decodedAddr);

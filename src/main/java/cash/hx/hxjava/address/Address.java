@@ -45,7 +45,7 @@ public class Address {
         this(addy, AddressVersion.NORMAL);
     }
 
-    public static Address fromPubKey(byte[] pubKeyBytes, String netType, byte version) {
+    public static Address fromPubKey(byte[] pubKeyBytes, byte version) {
         byte[] pubKeySha512 = CryptoUtil.sha512(pubKeyBytes);
         byte[] addrBytes = CryptoUtil.ripemd160(pubKeySha512);
         return new Address(addrBytes, version);

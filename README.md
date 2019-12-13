@@ -11,7 +11,9 @@ hx java sdk
 
 # Demo
 
-```$java
+* create and sign transaction
+
+```
 String refInfo = "30375,575365464";
 String chainId = Constants.mainnetChainId;
 String wifStr = "";
@@ -24,4 +26,16 @@ Transaction tx = TransactionBuilder.createTransferTransaction(refInfo, fromAddr,
 String txJson = TransactionBuilder.signTransaction(tx, wifStr, chainId, Address.ADDRESS_PREFIX);
 log.info("signed tx: {}", txJson);
 // then you can use client rpc's lightwallet_broadcast or node rpc to broadcast this signed transaction json
+```
+
+* generate private key and address
+
+```
+ECKey ecKey = PrivateKeyGenerator.generate();
+String privateKeyHex = ecKey.getPrivateKeyAsHex();
+String wif = PrivateKeyUtil.privateKeyToWif(ecKey);
+log.info("privateKeyHex: {}", privateKeyHex);
+log.info("privateKey wif: {}", wif);
+Address address = Address.fromPubKey(ecKey.getPubKey(), AddressVersion.NORMAL);
+log.info("address: {}", address);
 ```
