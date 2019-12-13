@@ -5,6 +5,7 @@ import cash.hx.hxjava.builder.TransactionBuilder;
 import cash.hx.hxjava.config.Constants;
 import cash.hx.hxjava.exceptions.CryptoException;
 import cash.hx.hxjava.exceptions.TransactionException;
+import cash.hx.hxjava.transaction.Transaction;
 import cash.hx.hxjava.utils.Numeric;
 import org.bitcoin.Secp256k1Context;
 import org.bitcoinj.core.ECKey;
@@ -40,7 +41,8 @@ public class SignatureTests {
         BigDecimal amount = new BigDecimal("0.001");
         BigDecimal fee = new BigDecimal("0.0011");
         String memo = "test";
-        String txJson = TransactionBuilder.transfer(Address.ADDRESS_PREFIX, refInfo, wifStr, chainId, fromAddr, toAddr, amount, "1.3.0", 5, fee, memo, null);
+        Transaction tx = TransactionBuilder.createTransferTransaction(refInfo, fromAddr, toAddr, amount, "1.3.0", 5, fee, memo, null);
+        String txJson = TransactionBuilder.signTransaction(tx, wifStr, chainId, Address.ADDRESS_PREFIX);
         log.info("signed tx: {}", txJson);
     }
 }

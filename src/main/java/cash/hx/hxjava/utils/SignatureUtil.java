@@ -71,7 +71,6 @@ public class SignatureUtil {
     public static byte[] getSignature(String wifStr, byte[] toSignBytes) throws CryptoException {
         ECKey privateKey = getPrivateKeyfromWif(wifStr);
         try {
-
             byte[] txDigest = CryptoUtil.sha256(toSignBytes);
             log.info("tx digest: {}", Numeric.toHexStringNoPrefix(txDigest));
             byte[] hash = txDigest;

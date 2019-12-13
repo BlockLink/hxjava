@@ -32,9 +32,15 @@ import java.util.*;
 public class TransactionBuilder {
     private static final Logger log = LoggerFactory.getLogger(TransactionBuilder.class);
 
-    public static String transfer(String addressPrefix, String refInfo, String wifStr, String chainId, String fromAddr, String toAddr,
-                                  BigDecimal transferAmount, String assetId, int assetPrecision, BigDecimal fee, String memo, String guaranteeId)
-            throws TransactionException {
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+
+    static {
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+    }
+
+    public static Transaction createTransferTransaction(String refInfo, String fromAddr, String toAddr, BigDecimal transferAmount,
+                                                        String assetId, int assetPrecision, BigDecimal fee, String memo,
+                                                        String guaranteeId) throws TransactionException {
         long transferAmountFull = transferAmount.multiply(new BigDecimal(10).pow(assetPrecision)).longValue();
         long feeFull = fee.multiply(new BigDecimal(10).pow(Constants.hxPrecision)).longValue();
 
@@ -69,9 +75,7 @@ public class TransactionBuilder {
         }
 
         long expireSec = (System.currentTimeMillis() / 1000) + Constants.expireTimeout;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-        String expireStr = sdf.format(new Date(expireSec * 1000)); // expir_str := "2018-09-26T09:14:40"
+        String expireStr = sdf.format(new Date(expireSec * 1000)); // expire_str := "2018-09-26T09:14:40"
 
         RefBlockInfo refBlockInfo = RefBlockInfo.decodeFromInfoString(refInfo);
         int refBlockNum = refBlockInfo.getRefBlockNum();
@@ -85,19 +89,25 @@ public class TransactionBuilder {
         tx.setExtensions(new ArrayList<>());
         tx.setSignatures(new ArrayList<>());
         tx.setTransientOperations(Collections.singletonList(transferOperation));
+        return tx;
+    }
 
-        // TODO: 拆分成序列化和签名两个方法
-
+    public static String signTransaction(Transaction transaction, String wifStr, String chainId, String addressPrefix)
+            throws TransactionException {
         TransactionSerializer txSerializer = new TransactionSerializer(addressPrefix);
         try {
-            byte[] txBytes = txSerializer.serialize(tx);
+            byte[] txBytes = txSerializer.serialize(transaction);
             log.debug("tx hex: {}", Numeric.toHexStringNoPrefix(txBytes));
             byte[] chainIdBytes = Numeric.hexStringToByteArray(chainId);
             byte[] toSignBytes = CryptoUtil.bytesMerge(chainIdBytes, txBytes);
             byte[] sig = SignatureUtil.getSignature(wifStr, toSignBytes);
-            tx.setSignatures(Collections.singletonList(Numeric.toHexStringNoPrefix(sig)));
-            String txJson = JSON.toJSONString(tx);
-            return txJson;
+            List<String> signatures = transaction.getSignatures();
+            if(signatures==null) {
+                signatures = new ArrayList<>();
+            }
+            signatures.add(Numeric.toHexStringNoPrefix(sig));
+            transaction.setSignatures(signatures);
+            return JSON.toJSONString(transaction);
         } catch (Exception e) {
             e.printStackTrace();
             throw new TransactionException(e);
