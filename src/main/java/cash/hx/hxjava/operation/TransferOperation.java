@@ -94,6 +94,6 @@ public class TransferOperation implements IOperation {
 
     @Override
     public int getOperationType() {
-        return 0; // transfer operation type
+        return OperationTypes.TRANSFER_OPERATION;
     }
 }

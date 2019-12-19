@@ -36,6 +36,28 @@ public class SignatureTests {
     }
 
     @Test
+    public void testContractInvoke() throws TransactionException {
+        String refInfo = "16573,2299525098";
+        String chainId = Constants.mainnetChainId;
+        String wifStr = "";
+        String callerAddr = "";
+        String callerPubKey = "";
+        String contractId = "HXCHcRE3jsyHGrtoE2ZJZtpHsEiYTQ7VrHkb";
+        String contractApi = "balanceOf";
+        String contractArg = "";
+
+        long gasLimit = 10000;
+        long gasPrice = 1;
+
+        BigDecimal fee = new BigDecimal("0.003");
+
+        Transaction tx = TransactionBuilder.createContractInvokeTransaction(refInfo, callerAddr, callerPubKey,
+                contractId, contractApi, contractArg, fee, gasLimit, gasPrice, null);
+        String txJson = TransactionBuilder.signTransaction(tx, wifStr, chainId, Address.ADDRESS_PREFIX);
+        log.info("signed tx: {}", txJson);
+    }
+
+    @Test
     public void testTransfer() throws TransactionException {
         String refInfo = "30375,575365464";
         String chainId = Constants.mainnetChainId;

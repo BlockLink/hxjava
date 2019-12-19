@@ -18,4 +18,17 @@ public class OperationsUtil {
         op.setExtensions(new ArrayList<>());
         return op;
     }
+    public static ContractInvokeOperation defaultContractInvokeOperation() {
+        ContractInvokeOperation op = new ContractInvokeOperation();
+        op.setFee(AssetUtil.defaultAsset());
+        op.setGuaranteeId(null);
+        op.setCallerAddr("");
+        op.setCallerPubkey("");
+        op.setContractId("");
+        op.setContractApi("");
+        op.setContractArg("");
+        op.setInvokeCost(10000);
+        op.setGasPrice(1);
+        return op;
+    }
 }

@@ -72,7 +72,7 @@ public class SignatureUtil {
         ECKey privateKey = getPrivateKeyfromWif(wifStr);
         try {
             byte[] txDigest = CryptoUtil.sha256(toSignBytes);
-            log.info("tx digest: {}", Numeric.toHexStringNoPrefix(txDigest));
+            log.debug("tx digest: {}", Numeric.toHexStringNoPrefix(txDigest));
             byte[] hash = txDigest;
             Sha256Hash e = Sha256Hash.wrap(hash);
             int nonce = 0;
