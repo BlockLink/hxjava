@@ -43,11 +43,11 @@ public class Uint64Serializer implements ISerializer<Long> {
     public Long deserialize(byte[] bytes) throws DeserializeException {
         long value;
         if(littleEndian) {
-            value = ((long) bytes[0]) | (((long)bytes[1]) << 8) | (((long)bytes[2]) << 16) | (((long) bytes[3]) << 24)
-                    | (((long) bytes[4]) << 32) | (((long) bytes[5]) << 40) | (((long) bytes[6]) << 48) | (((long) bytes[7]) << 56);
+            value = ((long) (bytes[0]&0xffL)) | (((long)(bytes[1]&0xffL)) << 8) | (((long)(bytes[2]&0xffL)) << 16) | (((long) (bytes[3]&0xffL)) << 24)
+                    | (((long) (bytes[4]&0xffL)) << 32) | (((long) (bytes[5]&0xffL)) << 40) | (((long) (bytes[6]&0xffL)) << 48) | (((long) (bytes[7]&0xffL)) << 56);
         } else {
-            value =((long) bytes[7]) | (((long)bytes[6]) << 8) | (((long)bytes[5]) << 16) | (((long) bytes[4]) << 24)
-                    | (((long) bytes[3]) << 32) | (((long) bytes[2]) << 40) | (((long) bytes[1]) << 48) | (((long) bytes[0]) << 56);
+            value =((long) (bytes[7])&0xffL) | (((long)(bytes[6]&0xffL)) << 8) | (((long)(bytes[5]&0xffL)) << 16) | (((long) (bytes[4]&0xffL)) << 24)
+                    | (((long) (bytes[3]&0xffL)) << 32) | (((long) (bytes[2]&0xffL)) << 40) | (((long) (bytes[1]&0xffL)) << 48) | (((long) (bytes[0]&0xffL)) << 56);
         }
         return value;
     }

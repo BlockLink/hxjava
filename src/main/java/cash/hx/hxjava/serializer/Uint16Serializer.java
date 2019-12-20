@@ -31,9 +31,9 @@ public class Uint16Serializer implements ISerializer<Integer> {
     public Integer deserialize(byte[] bytes) throws DeserializeException {
         int value;
         if(littleEndian) {
-            value = ((int) bytes[0]) | (((int)bytes[1]) << 8);
+            value = ((int) (bytes[0]&0xffL)) | (((int)(bytes[1]&0xffL)) << 8);
         } else {
-            value = ((int) bytes[1]) | (((int) bytes[0]) << 8);
+            value = ((int) (bytes[1]&0xffL)) | (((int) (bytes[0]&0xffL)) << 8);
         }
         return value;
     }

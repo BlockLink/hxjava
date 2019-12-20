@@ -35,9 +35,9 @@ public class Uint32Serializer implements ISerializer<Long> {
     public Long deserialize(byte[] bytes) throws DeserializeException {
         long value;
         if(littleEndian) {
-            value = ((long) bytes[0]) | (((long)bytes[1]) << 8) | (((long)bytes[2]) << 16) | (((long) bytes[3]) << 24);
+            value = ((long) (bytes[0]&0xffL)) | (((long)(bytes[1]&0xffL)) << 8) | (((long)(bytes[2]&0xffL)) << 16) | (((long) (bytes[3]&0xffL)) << 24);
         } else {
-            value = ((long) bytes[3]) | (((long) bytes[2]) << 8) | (((long)bytes[1]) << 16) | (((long) bytes[0]) << 24);
+            value = ((long) (bytes[3]&0xffL)) | (((long) (bytes[2]&0xffL)) << 8) | (((long)(bytes[1]&0xffL)) << 16) | (((long) (bytes[0]&0xffL)) << 24);
         }
         return value;
     }
