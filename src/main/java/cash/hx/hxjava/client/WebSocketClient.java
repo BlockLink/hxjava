@@ -81,10 +81,11 @@ public class WebSocketClient implements Closeable {
             // Connect with V13 (RFC 6455 aka HyBi-17). You can change it to V08 or V00.
             // If you change it to V00, ping is not supported and remember to change
             // HttpResponseDecoder to WebSocketHttpResponseDecoder in the pipeline.
+            final WebSocketClientHandshaker handshaker = WebSocketClientHandshakerFactory.newHandshaker(
+                    uri, WebSocketVersion.V13, null, true, new DefaultHttpHeaders(), 65536 * 5); // need use larger payload limit than default
             final WebSocketClientHandler handler =
                     new WebSocketClientHandler(nodeClient,
-                            WebSocketClientHandshakerFactory.newHandshaker(
-                                    uri, WebSocketVersion.V13, null, true, new DefaultHttpHeaders()));
+                            handshaker);
 
             Bootstrap b = new Bootstrap();
             b.group(eventLoopGroup)

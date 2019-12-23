@@ -51,6 +51,28 @@ String txJson = TransactionBuilder.signTransaction(tx, wifStr, chainId, Address.
 log.info("signed tx: {}", txJson);
 ```
 
+* transfer asset to contract transaction
+```
+String refInfo = getRefInfo();
+String chainId = Constants.mainnetChainId;
+String wifStr = "";
+String callerAddr = "";
+String callerPubKey = "";
+String contractId = "HXCHcRE3jsyHGrtoE2ZJZtpHsEiYTQ7VrHkb";
+BigDecimal transferAmount = new BigDecimal("0.001");
+String transferMemo = "hi";
+
+long gasLimit = 10000;
+long gasPrice = 1;
+
+BigDecimal fee = new BigDecimal("0.003");
+
+Transaction tx = TransactionBuilder.createContractTransferTransaction(refInfo, callerAddr, callerPubKey,
+        contractId, transferAmount, "1.3.0", Constants.hxPrecision, transferMemo, fee, gasLimit, gasPrice, null);
+String txJson = TransactionBuilder.signTransaction(tx, wifStr, chainId, Address.ADDRESS_PREFIX);
+log.info("signed tx: {}", txJson);
+```
+
 * generate private key and address
 
 ```

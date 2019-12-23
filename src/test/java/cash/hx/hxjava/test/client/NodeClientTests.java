@@ -6,7 +6,6 @@ import cash.hx.hxjava.client.response.AssetInfoResponse;
 import cash.hx.hxjava.client.response.TxOperationReceiptResponse;
 import cash.hx.hxjava.operation.NodeException;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -40,6 +39,8 @@ public class NodeClientTests {
             log.info("invoke result: {}", invokeResult);
             String refInfo = nodeClient.constructRefInfo(6648413, "0065725d686b75c3d6576ecc17d5161c260d6dcd");
             log.info("example refInfo: {}", refInfo);
+            String refInfoFromNode = nodeClient.getRefInfo();
+            log.info("refInfoFromNode: {}", refInfoFromNode);
             JSONObject blockInfo = nodeClient.getBlock(100);
             log.info("blockInfo: {}", JSON.toJSONString(blockInfo));
             List<TxOperationReceiptResponse> txReceipts = nodeClient.getContractTxReceipts(contractTxId);

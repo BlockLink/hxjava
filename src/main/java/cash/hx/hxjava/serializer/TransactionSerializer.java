@@ -3,6 +3,7 @@ package cash.hx.hxjava.serializer;
 import cash.hx.hxjava.exceptions.DeserializeException;
 import cash.hx.hxjava.exceptions.SerializeException;
 import cash.hx.hxjava.operation.ContractInvokeOperation;
+import cash.hx.hxjava.operation.ContractTransferOperation;
 import cash.hx.hxjava.operation.IOperation;
 import cash.hx.hxjava.operation.TransferOperation;
 import cash.hx.hxjava.transaction.Transaction;
@@ -24,6 +25,7 @@ public class TransactionSerializer implements ISerializer<Transaction> {
         Uint32Serializer uint32Serializer = Uint32Serializer.defaultInstance();
         TransferOperationSerializer transferOperationSerializer = new TransferOperationSerializer(addressPrefix);
         ContractInvokeOperationSerializer contractInvokeOperationSerializer = new ContractInvokeOperationSerializer(addressPrefix);
+        ContractTransferOperationSerializer contractTransferOperationSerializer = new ContractTransferOperationSerializer(addressPrefix);
         try {
             bos.write(uint16Serializer.serialize(instance.getRefBlockNum()));
             bos.write(uint32Serializer.serialize(instance.getRefBlockPrefix()));
@@ -42,6 +44,10 @@ public class TransactionSerializer implements ISerializer<Transaction> {
                         int opType = operation.getOperationType();
                         bos.write(opType);
                         bos.write(contractInvokeOperationSerializer.serialize((ContractInvokeOperation) operation));
+                    } else if(operation instanceof ContractTransferOperation) {
+                        int opType = operation.getOperationType();
+                        bos.write(opType);
+                        bos.write(contractTransferOperationSerializer.serialize((ContractTransferOperation) operation));
                     } else {
                         throw new SerializeException("not supported operation class " + operation.getClass().toString());
                     }

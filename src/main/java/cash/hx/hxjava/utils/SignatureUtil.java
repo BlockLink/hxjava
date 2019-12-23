@@ -2,18 +2,10 @@ package cash.hx.hxjava.utils;
 
 import cash.hx.hxjava.crypto.CryptoUtil;
 import cash.hx.hxjava.exceptions.CryptoException;
-import org.bitcoin.Secp256k1Context;
 import org.bitcoinj.core.*;
-import org.bouncycastle.asn1.eac.ECDSAPublicKey;
-import org.bouncycastle.crypto.SignerWithRecovery;
-import org.bouncycastle.crypto.digests.SHA256Digest;
 import org.bouncycastle.crypto.params.*;
 import org.bouncycastle.crypto.signers.ECDSASigner;
-import org.bouncycastle.crypto.signers.HMacDSAKCalculator;
-import org.bouncycastle.crypto.signers.RandomDSAKCalculator;
 import org.bouncycastle.math.ec.ECPoint;
-import org.bouncycastle.math.ec.custom.sec.SecP256K1Curve;
-import org.bouncycastle.math.ec.custom.sec.SecP256K1Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -31,4 +31,18 @@ public class OperationsUtil {
         op.setGasPrice(1);
         return op;
     }
+
+    public static ContractTransferOperation defaultContractTransferOperation() {
+        ContractTransferOperation op = new ContractTransferOperation();
+        op.setFee(AssetUtil.defaultAsset());
+        op.setGuaranteeId(null);
+        op.setCallerAddr("");
+        op.setCallerPubkey("");
+        op.setContractId("");
+        op.setAmount(AssetUtil.defaultAsset());
+        op.setParam("");
+        op.setInvokeCost(10000);
+        op.setGasPrice(1);
+        return op;
+    }
 }
